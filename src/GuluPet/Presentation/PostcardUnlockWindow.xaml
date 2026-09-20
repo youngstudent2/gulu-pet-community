@@ -1,0 +1,404 @@
+<Window x:Class="GuluPet.Presentation.PostcardUnlockWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Name="UnlockWindow"
+        Title="咕噜的新明信片"
+        Width="420"
+        Height="390"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="False"
+        Background="#FFFFF8E9"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        Focusable="False"
+        WindowStartupLocation="Manual"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        Opacity="0"
+        AutomationProperties.Name="咕噜的新明信片">
+    <Window.Resources>
+        <Style x:Key="PostcardDismissButtonStyle"
+               TargetType="{x:Type Button}">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonSurface"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="ButtonSurface"
+                                        Property="Opacity"
+                                        Value="0.97" />
+                            </Trigger>
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+                                <Setter TargetName="ButtonSurface"
+                                        Property="Opacity"
+                                        Value="0.90" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SparkleStyle"
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Text"
+                    Value="✦" />
+            <Setter Property="Foreground"
+                    Value="#FFE7B84E" />
+            <Setter Property="FontFamily"
+                    Value="Segoe UI Symbol" />
+            <Setter Property="FontSize"
+                    Value="22" />
+            <Setter Property="Opacity"
+                    Value="0" />
+            <Setter Property="IsHitTestVisible"
+                    Value="False" />
+            <Setter Property="RenderTransformOrigin"
+                    Value="0.5,0.5" />
+        </Style>
+    </Window.Resources>
+
+    <Viewbox Stretch="Uniform"
+             StretchDirection="DownOnly">
+        <Border x:Name="RevealSurface"
+                Width="418"
+                Height="388"
+                Margin="1"
+                Padding="18,14,18,13"
+                Background="#FFFFF8E9"
+                BorderBrush="#FFDACBB9"
+                BorderThickness="1"
+                CornerRadius="16">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="44" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="26" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="42" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Border Width="36"
+                        Height="36"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="#FFFFFCF6"
+                        BorderBrush="#FFD8C7B4"
+                        BorderThickness="1"
+                        CornerRadius="18">
+                    <Image x:Name="GuluStampImage"
+                           Width="32"
+                           Height="32"
+                           Stretch="Uniform"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           AutomationProperties.Name="咕噜" />
+                </Border>
+
+                <StackPanel Grid.Column="1"
+                            Margin="8,0,8,0"
+                            VerticalAlignment="Center">
+                    <TextBlock x:Name="RevealAnnouncementText"
+                               Text="咕噜寄来了一张明信片"
+                               Foreground="#FF443B35"
+                               FontFamily="Microsoft YaHei UI"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               AutomationProperties.LiveSetting="Polite" />
+                    <TextBlock x:Name="RevealSubtitleText"
+                               Text="这段小旅行，咕噜替妈咪收好了"
+                               Margin="0,1,0,0"
+                               Foreground="#FF76695E"
+                               FontFamily="Microsoft YaHei UI"
+                               FontSize="11.5" />
+                </StackPanel>
+
+                <Border Grid.Column="2"
+                        Padding="8,3"
+                        VerticalAlignment="Center"
+                        Background="#FFFFFCF6"
+                        BorderBrush="#FFD8C7B4"
+                        BorderThickness="1"
+                        CornerRadius="10">
+                    <TextBlock x:Name="JourneyOrderText"
+                               Foreground="#FFB84F3F"
+                               FontFamily="Microsoft YaHei UI"
+                               FontSize="11"
+                               FontWeight="SemiBold" />
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1"
+                  Margin="0,8,0,7">
+                <Button x:Name="PostcardButton"
+                        Width="340"
+                        Height="268"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource PostcardDismissButtonStyle}"
+                        Click="OnPostcardClicked"
+                        AutomationProperties.HelpText="点击收下这张明信片">
+                    <Border x:Name="PostcardMat"
+                            Padding="8"
+                            Background="#FFFFFCF6"
+                            BorderBrush="#FFD8C7B4"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            RenderTransformOrigin="0.5,0.5">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="18"
+                                              Direction="270"
+                                              ShadowDepth="5"
+                                              Color="#553E332C"
+                                              Opacity="0.34" />
+                        </Border.Effect>
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform x:Name="CardScale"
+                                                ScaleX="0.92"
+                                                ScaleY="0.92" />
+                                <RotateTransform x:Name="CardRotation"
+                                                 Angle="-1.5" />
+                            </TransformGroup>
+                        </Border.RenderTransform>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="216" />
+                                <RowDefinition Height="36" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0"
+                                    Background="#FFF1EADF"
+                                    BorderBrush="#FFE4D8CA"
+                                    BorderThickness="1"
+                                    CornerRadius="3"
+                                    ClipToBounds="True">
+                                <Grid>
+                                    <Image x:Name="PostcardImage"
+                                           Stretch="UniformToFill"
+                                           RenderOptions.BitmapScalingMode="HighQuality" />
+                                    <TextBlock x:Name="ImageFailureText"
+                                               Text="这张风景暂时躲起来了，过会儿再看看吧"
+                                               Padding="20"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Foreground="#FF76695E"
+                                               FontFamily="Microsoft YaHei UI"
+                                               FontSize="13"
+                                               TextAlignment="Center"
+                                               TextWrapping="Wrap"
+                                               Visibility="Collapsed" />
+                                    <Border x:Name="TravelEchoStamp"
+                                            Background="#FFF8E7C8"
+                                            BorderBrush="#FFB84F3F"
+                                            BorderThickness="3"
+                                            CornerRadius="104"
+                                            Margin="43,8"
+                                            Visibility="Collapsed">
+                                        <Grid>
+                                            <Ellipse Margin="8"
+                                                     Stroke="#FFE7B84E"
+                                                     StrokeThickness="2"
+                                                     StrokeDashArray="2,2" />
+                                            <StackPanel HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center">
+                                                <Image x:Name="TravelEchoGuluImage"
+                                                       Width="64"
+                                                       Height="64"
+                                                       Stretch="Uniform"
+                                                       RenderOptions.BitmapScalingMode="HighQuality"
+                                                       AutomationProperties.Name="咕噜带回的小印章" />
+                                                <TextBlock Text="GULU"
+                                                           HorizontalAlignment="Center"
+                                                           Foreground="#FFB84F3F"
+                                                           FontFamily="Segoe UI"
+                                                           FontSize="16"
+                                                           FontWeight="Bold" />
+                                                <TextBlock x:Name="SyntheticStampLabelText"
+                                                           Text="咕噜的小印章"
+                                                           HorizontalAlignment="Center"
+                                                           Foreground="#FF76695E"
+                                                           FontFamily="Microsoft YaHei UI"
+                                                           FontSize="12"
+                                                           FontWeight="SemiBold" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                    <Border x:Name="SweepBand"
+                                            Width="96"
+                                            HorizontalAlignment="Left"
+                                            IsHitTestVisible="False">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0"
+                                                                 EndPoint="1,0">
+                                                <GradientStop Offset="0"
+                                                              Color="#00FFFFFF" />
+                                                <GradientStop Offset="0.5"
+                                                              Color="#99FFFFFF" />
+                                                <GradientStop Offset="1"
+                                                              Color="#00FFFFFF" />
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <Border.RenderTransform>
+                                            <TranslateTransform x:Name="SweepTransform"
+                                                                X="-130" />
+                                        </Border.RenderTransform>
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <Grid Grid.Row="1"
+                                  Margin="2,6,2,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock x:Name="PostcardTitleText"
+                                               Foreground="#FF443B35"
+                                               FontFamily="Microsoft YaHei UI"
+                                               FontSize="13"
+                                               FontWeight="SemiBold"
+                                               TextTrimming="CharacterEllipsis" />
+                                    <TextBlock x:Name="PostcardLocationText"
+                                               Foreground="#FF76695E"
+                                               FontFamily="Microsoft YaHei UI"
+                                               FontSize="10.5"
+                                               TextTrimming="CharacterEllipsis" />
+                                </StackPanel>
+                                <TextBlock Grid.Column="1"
+                                           Text="GULU"
+                                           Margin="12,0,0,0"
+                                           VerticalAlignment="Center"
+                                           Foreground="#FFB84F3F"
+                                           FontFamily="Segoe UI"
+                                           FontSize="10"
+                                           FontWeight="Bold"
+                                           FontStyle="Italic" />
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Button>
+
+                <Canvas IsHitTestVisible="False"
+                        ClipToBounds="False">
+                    <TextBlock x:Name="Sparkle1"
+                               Canvas.Left="-5"
+                               Canvas.Top="22"
+                               Style="{StaticResource SparkleStyle}">
+                        <TextBlock.RenderTransform>
+                            <ScaleTransform ScaleX="0.35"
+                                            ScaleY="0.35" />
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBlock x:Name="Sparkle2"
+                               Canvas.Left="28"
+                               Canvas.Top="-5"
+                               Style="{StaticResource SparkleStyle}"
+                               FontSize="15">
+                        <TextBlock.RenderTransform>
+                            <ScaleTransform ScaleX="0.35"
+                                            ScaleY="0.35" />
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBlock x:Name="Sparkle3"
+                               Canvas.Right="12"
+                               Canvas.Top="4"
+                               Style="{StaticResource SparkleStyle}"
+                               FontSize="18">
+                        <TextBlock.RenderTransform>
+                            <ScaleTransform ScaleX="0.35"
+                                            ScaleY="0.35" />
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBlock x:Name="Sparkle4"
+                               Canvas.Right="-3"
+                               Canvas.Top="72"
+                               Style="{StaticResource SparkleStyle}"
+                               FontSize="26">
+                        <TextBlock.RenderTransform>
+                            <ScaleTransform ScaleX="0.35"
+                                            ScaleY="0.35" />
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBlock x:Name="Sparkle5"
+                               Canvas.Left="-2"
+                               Canvas.Bottom="48"
+                               Style="{StaticResource SparkleStyle}"
+                               FontSize="17">
+                        <TextBlock.RenderTransform>
+                            <ScaleTransform ScaleX="0.35"
+                                            ScaleY="0.35" />
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBlock x:Name="Sparkle6"
+                               Canvas.Right="14"
+                               Canvas.Bottom="32"
+                               Style="{StaticResource SparkleStyle}"
+                               FontSize="16">
+                        <TextBlock.RenderTransform>
+                            <ScaleTransform ScaleX="0.35"
+                                            ScaleY="0.35" />
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBlock x:Name="Sparkle7"
+                               Canvas.Left="42"
+                               Canvas.Bottom="-3"
+                               Style="{StaticResource SparkleStyle}"
+                               FontSize="22">
+                        <TextBlock.RenderTransform>
+                            <ScaleTransform ScaleX="0.35"
+                                            ScaleY="0.35" />
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBlock x:Name="Sparkle8"
+                               Canvas.Right="72"
+                               Canvas.Bottom="-7"
+                               Style="{StaticResource SparkleStyle}"
+                               FontSize="14">
+                        <TextBlock.RenderTransform>
+                            <ScaleTransform ScaleX="0.35"
+                                            ScaleY="0.35" />
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                </Canvas>
+            </Grid>
+
+            <TextBlock Grid.Row="2"
+                       Text="点一下收好 · 不点也会替妈咪放进明信片册"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="#FF76695E"
+                       FontFamily="Microsoft YaHei UI"
+                       FontSize="11.5" />
+        </Grid>
+        </Border>
+    </Viewbox>
+</Window>

@@ -1,0 +1,778 @@
+<Window x:Class="GuluPet.Presentation.PetWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="咕噜"
+        Width="280"
+        Height="260"
+        MinWidth="120"
+        MinHeight="120"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ShowInTaskbar="True"
+        Topmost="True"
+        WindowStartupLocation="Manual"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True">
+    <Window.Resources>
+        <Style x:Key="InteractionButtonStyle"
+               TargetType="Button">
+            <Setter Property="Height" Value="42" />
+            <Setter Property="Margin" Value="0,3,0,0" />
+            <Setter Property="Padding" Value="8,0" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="#F7FFFDF8" />
+            <Setter Property="BorderBrush" Value="#FFD8C7B4" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="#FF4A3F36" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonChrome"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="13"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonChrome"
+                                        Property="Background"
+                                        Value="#FFFFF2DE" />
+                                <Setter TargetName="ButtonChrome"
+                                        Property="BorderBrush"
+                                        Value="#FFCF8B72" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonChrome"
+                                        Property="Background"
+                                        Value="#FFFFE8CE" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="ButtonChrome"
+                                        Property="BorderBrush"
+                                        Value="#FF9B5E45" />
+                                <Setter TargetName="ButtonChrome"
+                                        Property="BorderThickness"
+                                        Value="2" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonChrome"
+                                        Property="Opacity"
+                                        Value="0.58" />
+                                <Setter Property="Cursor" Value="Arrow" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="WardrobeNavButtonStyle"
+               TargetType="Button">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="26" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="#FF6D584D" />
+            <Setter Property="Background" Value="#B3FFF8F0" />
+            <Setter Property="BorderBrush" Value="#FFD8C7B4" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="NavChrome"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="9">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="NavChrome"
+                                        Property="Background"
+                                        Value="#FFFFE9DB" />
+                                <Setter TargetName="NavChrome"
+                                        Property="BorderBrush"
+                                        Value="#FFE6A88F" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="NavChrome"
+                                        Property="Background"
+                                        Value="#FFFFD9C7" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="NavChrome"
+                                        Property="BorderBrush"
+                                        Value="#FF9B5E45" />
+                                <Setter TargetName="NavChrome"
+                                        Property="BorderThickness"
+                                        Value="2" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="NavChrome"
+                                        Property="Opacity"
+                                        Value="0.42" />
+                                <Setter Property="Cursor" Value="Arrow" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="WardrobeSlotButtonStyle"
+               TargetType="Button">
+            <Setter Property="Height" Value="74" />
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Padding" Value="4,3" />
+            <Setter Property="Background" Value="#B3FFFDF8" />
+            <Setter Property="BorderBrush" Value="#FFE2D4C6" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="#FF55483F" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="SlotChrome"
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="13">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="SlotChrome"
+                                        Property="Background"
+                                        Value="#FFFFEEE3" />
+                                <Setter TargetName="SlotChrome"
+                                        Property="BorderBrush"
+                                        Value="#FFF0B298" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding IsSelected}"
+                                         Value="True">
+                                <Setter TargetName="SlotChrome"
+                                        Property="Background"
+                                        Value="#FFFFE4D8" />
+                                <Setter TargetName="SlotChrome"
+                                        Property="BorderBrush"
+                                        Value="#FFE47F61" />
+                                <Setter TargetName="SlotChrome"
+                                        Property="BorderThickness"
+                                        Value="2" />
+                            </DataTrigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="SlotChrome"
+                                        Property="Background"
+                                        Value="#FFFFD4C3" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="SlotChrome"
+                                        Property="BorderBrush"
+                                        Value="#FF9B5E45" />
+                                <Setter TargetName="SlotChrome"
+                                        Property="BorderThickness"
+                                        Value="2" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="WardrobeSlotTemplate">
+            <Button Style="{StaticResource WardrobeSlotButtonStyle}"
+                    Tag="{Binding}"
+                    ToolTip="{Binding DisplayName}"
+                    AutomationProperties.Name="{Binding DisplayName}"
+                    AutomationProperties.ItemStatus="{Binding SelectionStatus}"
+                    Click="OnWardrobeItemClicked">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="18" />
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Image Width="{Binding ThumbnailSize}"
+                               Height="{Binding ThumbnailSize}"
+                               Source="{Binding Thumbnail}"
+                               Stretch="Uniform"
+                               RenderOptions.BitmapScalingMode="HighQuality">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsNone}"
+                                                     Value="True">
+                                            <Setter Property="Visibility"
+                                                    Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <Border Width="36"
+                                Height="30"
+                                Background="#FFFFF5ED"
+                                BorderBrush="#FFC9B3A5"
+                                BorderThickness="1"
+                                CornerRadius="10">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsNone}"
+                                                     Value="True">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Width="{Binding NoneIconSize}"
+                                  Height="{Binding NoneIconSize}"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center">
+                                <Ellipse Stroke="#FF9D8172"
+                                         StrokeThickness="1.5" />
+                                <Border Width="1.5"
+                                        Height="27"
+                                        Background="#FF9D8172"
+                                        RenderTransformOrigin="0.5,0.5">
+                                    <Border.RenderTransform>
+                                        <RotateTransform Angle="45" />
+                                    </Border.RenderTransform>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <Border Width="18"
+                                Height="18"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Margin="0,-1,-1,0"
+                                Background="#FFE47F61"
+                                CornerRadius="9">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSelected}"
+                                                     Value="True">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <TextBlock Text="✓"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="11"
+                                       FontWeight="Bold"
+                                       Foreground="White" />
+                        </Border>
+                    </Grid>
+                    <TextBlock Grid.Row="1"
+                               Text="{Binding DisplayName}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Bottom"
+                               MaxWidth="{Binding NameMaxWidth}"
+                               FontSize="{Binding NameFontSize}"
+                               Foreground="#FF66564C"
+                               TextTrimming="CharacterEllipsis" />
+                </Grid>
+            </Button>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid x:Name="PresentationRoot"
+          Background="Transparent">
+        <Grid x:Name="PetSurface"
+              Width="280"
+              Height="260"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top"
+              Background="Transparent"
+              ToolTip="咕噜">
+            <Grid.ContextMenu>
+                <ContextMenu x:Name="PetContextMenu"
+                             Opened="OnPetContextMenuOpened">
+                    <MenuItem x:Name="DiaryMenuItem"
+                              Header="日记"
+                              Click="OnDiaryClicked" />
+                    <MenuItem Header="动作"
+                              Click="OnBehaviorsClicked" />
+                    <MenuItem x:Name="PostcardsMenuItem"
+                              Header="明信片"
+                              Click="OnPostcardsClicked" />
+                    <MenuItem x:Name="MemoriesMenuItem"
+                              Header="回忆"
+                              Click="OnMemoriesClicked" />
+                    <Separator />
+                    <MenuItem x:Name="AlwaysOnTopMenuItem"
+                              Header="咕噜置于顶层"
+                              IsCheckable="True"
+                              Click="OnAlwaysOnTopClicked" />
+                    <MenuItem x:Name="StartWithWindowsMenuItem"
+                              Header="开机就来"
+                              IsCheckable="True"
+                              Click="OnStartWithWindowsClicked" />
+                    <Separator />
+                    <MenuItem Header="问题反馈"
+                              Click="OnSettingsClicked" />
+                    <MenuItem x:Name="UpdateMenuItem"
+                              Header="检查新版本"
+                              Click="OnManualUpdateClicked" />
+                    <Separator />
+                    <MenuItem Header="退出"
+                              Click="OnExitClicked" />
+                </ContextMenu>
+            </Grid.ContextMenu>
+
+            <Image x:Name="PetImage"
+                   x:FieldModifier="public"
+                   Stretch="Uniform"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   AutomationProperties.Name="咕噜" />
+
+            <Viewbox x:Name="EyeAccessoryViewport"
+                     Stretch="Uniform"
+                     IsHitTestVisible="False"
+                     Visibility="Collapsed"
+                     AutomationProperties.Name="咕噜今天戴的小装饰">
+                <Canvas Width="320"
+                        Height="320"
+                        ClipToBounds="True">
+                    <Image x:Name="EyeAccessoryImage"
+                           Stretch="Fill"
+                           RenderOptions.BitmapScalingMode="HighQuality" />
+                </Canvas>
+            </Viewbox>
+
+            <Image x:Name="SideDockImage"
+                   Visibility="Collapsed"
+                   IsHitTestVisible="False"
+                   Stretch="Uniform"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   AutomationProperties.Name="待在屏幕边边的咕噜" />
+
+            <Border d:BorderBrush="#6600AEEF"
+                    d:BorderThickness="1"
+                    d:Background="#1100AEEF">
+                <TextBlock d:Text="PetImage"
+                           d:Foreground="#FF0078A8"
+                           d:HorizontalAlignment="Center"
+                           d:VerticalAlignment="Center" />
+            </Border>
+        </Grid>
+
+        <Popup x:Name="InteractionPopup"
+               PlacementTarget="{Binding ElementName=PetSurface}"
+               Placement="Custom"
+               AllowsTransparency="True"
+               StaysOpen="True"
+               Focusable="True"
+               PopupAnimation="None">
+            <Grid x:Name="InteractionPopupHost"
+                  MouseEnter="OnInteractionPopupMouseEnter"
+                  MouseLeave="OnInteractionPopupMouseLeave">
+                <Border x:Name="InteractionPopupSurface"
+                        Width="128"
+                        Margin="24"
+                        Padding="8"
+                        CornerRadius="18"
+                        Background="#F2FFFDF7"
+                        BorderBrush="#E6D8C7B4"
+                        BorderThickness="1"
+                        Focusable="True"
+                        KeyboardNavigation.TabNavigation="Cycle"
+                        KeyboardNavigation.DirectionalNavigation="Cycle"
+                        PreviewKeyDown="OnInteractionPopupPreviewKeyDown">
+                    <Border.RenderTransform>
+                        <TranslateTransform x:Name="InteractionPopupTranslate" />
+                    </Border.RenderTransform>
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="16"
+                                          ShadowDepth="3"
+                                          Opacity="0.24"
+                                          Color="#7A4A3A30" />
+                    </Border.Effect>
+                    <StackPanel>
+                        <Border x:Name="CareMeterPanel"
+                                Padding="7,5"
+                                CornerRadius="11"
+                                Background="#EFFFFAF2">
+                        <StackPanel>
+                            <Grid Height="17">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="29" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="饱饱"
+                                           FontSize="10"
+                                           Foreground="#FF66574B"
+                                           VerticalAlignment="Center" />
+                                <Grid Grid.Column="1"
+                                      Width="50"
+                                      Height="5"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Center">
+                                    <Border Background="#FFE9DED1"
+                                            CornerRadius="3" />
+                                    <Border x:Name="FoodMeterFill"
+                                            Width="50"
+                                            HorizontalAlignment="Left"
+                                            Background="#FFE68164"
+                                            CornerRadius="3" />
+                                </Grid>
+                                <TextBlock x:Name="FoodMeterText"
+                                           Grid.Column="2"
+                                           Text="100%"
+                                           FontSize="9"
+                                           Foreground="#FF806D60"
+                                           TextAlignment="Right"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                            <Grid Height="17">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="29" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="水分"
+                                           FontSize="10"
+                                           Foreground="#FF66574B"
+                                           VerticalAlignment="Center" />
+                                <Grid Grid.Column="1"
+                                      Width="50"
+                                      Height="5"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Center">
+                                    <Border Background="#FFDDE5E4"
+                                            CornerRadius="3" />
+                                    <Border x:Name="WaterMeterFill"
+                                            Width="50"
+                                            HorizontalAlignment="Left"
+                                            Background="#FF74AFC0"
+                                            CornerRadius="3" />
+                                </Grid>
+                                <TextBlock x:Name="WaterMeterText"
+                                           Grid.Column="2"
+                                           Text="100%"
+                                           FontSize="9"
+                                           Foreground="#FF806D60"
+                                           TextAlignment="Right"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                        </StackPanel>
+                        </Border>
+
+                        <Button x:Name="FeedInteractionButton"
+                                Style="{StaticResource InteractionButtonStyle}"
+                                Click="OnFeedInteractionClicked"
+                                AutomationProperties.Name="给咕噜猫条"
+                                AutomationProperties.HelpText="给咕噜一根猫条">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="27" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image x:Name="FeedInteractionIcon"
+                                   Width="24"
+                                   Height="24"
+                                   Stretch="Uniform"
+                                   RenderOptions.BitmapScalingMode="HighQuality" />
+                            <TextBlock Grid.Column="1"
+                                       Text="猫条"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="WaterInteractionButton"
+                            Style="{StaticResource InteractionButtonStyle}"
+                            Click="OnWaterInteractionClicked"
+                            AutomationProperties.Name="给咕噜添水"
+                            AutomationProperties.HelpText="给咕噜添一点水">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="27" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image x:Name="WaterInteractionIcon"
+                                   Width="24"
+                                   Height="24"
+                                   Stretch="Uniform"
+                                   RenderOptions.BitmapScalingMode="HighQuality" />
+                            <TextBlock Grid.Column="1"
+                                       Text="添水"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="TravelInteractionButton"
+                            Height="47"
+                            Style="{StaticResource InteractionButtonStyle}"
+                            Click="OnTravelInteractionClicked"
+                            AutomationProperties.Name="让咕噜出去逛逛"
+                            AutomationProperties.HelpText="让咕噜出去逛逛，回来时记得接她">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="27" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image x:Name="TravelInteractionIcon"
+                                   Width="24"
+                                   Height="24"
+                                   Stretch="Uniform"
+                                   RenderOptions.BitmapScalingMode="HighQuality" />
+                            <StackPanel Grid.Column="1"
+                                        VerticalAlignment="Center">
+                                <TextBlock x:Name="TravelInteractionText"
+                                           Text="去逛逛"
+                                           FontSize="12"
+                                           FontWeight="SemiBold" />
+                                <TextBlock x:Name="TravelCountdownText"
+                                           FontSize="9"
+                                           Foreground="#FF8A7668"
+                                           Visibility="Collapsed" />
+                            </StackPanel>
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="PetInteractionButton"
+                            Style="{StaticResource InteractionButtonStyle}"
+                            Click="OnPetInteractionClicked"
+                            AutomationProperties.Name="摸摸"
+                            AutomationProperties.HelpText="轻轻摸摸咕噜，看她愿不愿意理你">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="27" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image x:Name="PetInteractionIcon"
+                                   Width="24"
+                                   Height="24"
+                                   Stretch="Uniform"
+                                   RenderOptions.BitmapScalingMode="HighQuality" />
+                            <TextBlock Grid.Column="1"
+                                       Text="摸摸"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="WardrobeInteractionButton"
+                            Style="{StaticResource InteractionButtonStyle}"
+                            Click="OnWardrobeInteractionClicked"
+                            AutomationProperties.Name="给咕噜挑小装饰"
+                            AutomationProperties.HelpText="给咕噜挑件小装饰，也可以什么都不戴">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="27" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image x:Name="WardrobeInteractionIcon"
+                                   Width="24"
+                                   Height="24"
+                                   Stretch="Uniform"
+                                   RenderOptions.BitmapScalingMode="HighQuality" />
+                            <TextBlock Grid.Column="1"
+                                       Text="装扮"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                    </Button>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Popup>
+
+        <Popup x:Name="WardrobePopup"
+               PlacementTarget="{Binding ElementName=PetSurface}"
+               Placement="RelativePoint"
+               AllowsTransparency="True"
+               StaysOpen="True"
+               PopupAnimation="None"
+               Opened="OnWardrobePopupOpened"
+               Closed="OnWardrobePopupClosed">
+            <Grid x:Name="WardrobePopupHost"
+                  Width="688"
+                  Height="180"
+                  PreviewKeyDown="OnWardrobePopupPreviewKeyDown"
+                  PreviewMouseWheel="OnWardrobePopupMouseWheel"
+                  MouseEnter="OnWardrobePopupMouseEnter"
+                  MouseMove="OnWardrobePopupMouseMove"
+                  MouseLeave="OnWardrobePopupMouseLeave">
+                <Border x:Name="WardrobePopupSurface"
+                        Width="640"
+                        Height="132"
+                        Padding="11,9,11,10"
+                        Background="#FAFFFDF8"
+                        BorderBrush="#E6D8C7B4"
+                        BorderThickness="1"
+                        CornerRadius="20"
+                        Focusable="True"
+                        KeyboardNavigation.TabNavigation="Cycle"
+                        KeyboardNavigation.DirectionalNavigation="Cycle">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="16"
+                                          ShadowDepth="3"
+                                          Opacity="0.26"
+                                          Color="#714A392F" />
+                    </Border.Effect>
+                    <Border.RenderTransform>
+                        <TranslateTransform x:Name="WardrobePopupTranslate" />
+                    </Border.RenderTransform>
+                    <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="装扮"
+                                   VerticalAlignment="Center"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   Foreground="#FF4B3E36" />
+                        <TextBlock x:Name="WardrobeCurrentSelectionText"
+                                   Grid.Column="1"
+                                   Margin="9,0,10,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="10.5"
+                                   Foreground="#FF8A7568"
+                                   TextTrimming="CharacterEllipsis" />
+                        <StackPanel Grid.Column="2"
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <Button x:Name="WardrobePreviousPageButton"
+                                    Style="{StaticResource WardrobeNavButtonStyle}"
+                                    Content="‹"
+                                    ToolTip="上一页"
+                                    AutomationProperties.Name="装扮上一页"
+                                    Click="OnWardrobePreviousPageClicked" />
+                            <TextBlock x:Name="WardrobePageText"
+                                       Width="45"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       FontSize="10.5"
+                                       FontWeight="SemiBold"
+                                       Foreground="#FF6F5B50" />
+                            <Button x:Name="WardrobeNextPageButton"
+                                    Style="{StaticResource WardrobeNavButtonStyle}"
+                                    Content="›"
+                                    ToolTip="下一页"
+                                    AutomationProperties.Name="装扮下一页"
+                                    Click="OnWardrobeNextPageClicked" />
+                        </StackPanel>
+                    </Grid>
+                    <ItemsControl x:Name="WardrobeItems"
+                                  Grid.Row="1"
+                                  Margin="0,5,0,0"
+                                  ItemTemplate="{StaticResource WardrobeSlotTemplate}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="1" Columns="10" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Popup>
+
+        <Grid x:Name="MemoryLayer"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="Transparent"
+                Visibility="Collapsed"
+                IsHitTestVisible="True"
+                Focusable="True"
+                Cursor="SizeAll"
+                AutomationProperties.Name="咕噜的回忆">
+            <MediaElement x:Name="MemoryVideo"
+                   LoadedBehavior="Manual"
+                   UnloadedBehavior="Manual"
+                   Stretch="Fill"
+                   IsMuted="True"
+                   Volume="0"
+                   ScrubbingEnabled="True"
+                   MediaOpened="OnMemoryVideoOpened"
+                   MediaEnded="OnMemoryVideoEnded"
+                   MediaFailed="OnMemoryVideoFailed"
+                   AutomationProperties.Name="咕噜的回忆画面" />
+            <Border VerticalAlignment="Top"
+                    Margin="14"
+                    Padding="12,7"
+                    CornerRadius="14"
+                    Background="#A91B1A18"
+                    HorizontalAlignment="Left"
+                    IsHitTestVisible="False">
+                <TextBlock x:Name="MemoryTitleText"
+                           Foreground="#FFFFF8ED"
+                           FontSize="13"
+                           FontWeight="SemiBold"
+                           TextTrimming="CharacterEllipsis"
+                           MaxWidth="360" />
+            </Border>
+            <StackPanel VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal"
+                        Margin="14">
+                <Border Margin="0,0,8,0"
+                        Padding="9,5"
+                        CornerRadius="11"
+                        Background="#8F1B1A18"
+                        IsHitTestVisible="False">
+                    <TextBlock Text="按 Esc 也可以先收好"
+                               Foreground="#D9FFF8ED"
+                               FontSize="11" />
+                </Border>
+                <Button x:Name="MemorySkipButton"
+                        MinWidth="78"
+                        Height="32"
+                        Padding="13,0"
+                        Click="OnMemorySkipClicked"
+                        Cursor="Hand"
+                        Content="先收好"
+                        Foreground="#FFFFF8ED"
+                        Background="#D94A4641"
+                        BorderBrush="#80FFFFFF"
+                        BorderThickness="1"
+                        FontSize="12"
+                        AutomationProperties.Name="先把回忆收好" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

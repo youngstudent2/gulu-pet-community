@@ -1,0 +1,551 @@
+<Window x:Class="GuluPet.Presentation.DiaryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="咕噜日记"
+        Width="1100"
+        Height="760"
+        MinWidth="900"
+        MinHeight="620"
+        WindowStartupLocation="CenterOwner"
+        Background="#FFFFF8E5"
+        FontFamily="Microsoft YaHei UI"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True">
+    <Window.Resources>
+        <SolidColorBrush x:Key="InkBrush"
+                         Color="#FF403A31" />
+        <SolidColorBrush x:Key="MutedInkBrush"
+                         Color="#FF7B7061" />
+        <SolidColorBrush x:Key="HairlineBrush"
+                         Color="#FFE9DDAF" />
+
+        <Style x:Key="DateListItemStyle"
+               TargetType="ListBoxItem">
+            <Setter Property="Margin"
+                    Value="0,0,0,9" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="Background"
+                    Value="#BFFFFFF8" />
+            <Setter Property="BorderBrush"
+                    Value="#FFE8DDB7" />
+            <Setter Property="BorderThickness"
+                    Value="1" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="DateCard"
+                                Padding="12,11"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="14">
+                            <ContentPresenter HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="DateCard"
+                                        Property="Background"
+                                        Value="#FFFFF3C9" />
+                                <Setter TargetName="DateCard"
+                                        Property="BorderBrush"
+                                        Value="#FFEBC75D" />
+                            </Trigger>
+                            <Trigger Property="IsSelected"
+                                     Value="True">
+                                <Setter TargetName="DateCard"
+                                        Property="Background"
+                                        Value="#FFFFD866" />
+                                <Setter TargetName="DateCard"
+                                        Property="BorderBrush"
+                                        Value="#FFF0BC31" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocusWithin"
+                                     Value="True">
+                                <Setter TargetName="DateCard"
+                                        Property="BorderThickness"
+                                        Value="2" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="DateItemTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="54" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding DayText}"
+                           VerticalAlignment="Center"
+                           Foreground="{StaticResource InkBrush}"
+                           FontFamily="Georgia, Microsoft YaHei UI"
+                           FontSize="28"
+                           FontWeight="SemiBold" />
+                <StackPanel Grid.Column="1"
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="{Binding MonthAndWeekday}"
+                               Foreground="{StaticResource InkBrush}"
+                               FontSize="12.5"
+                               FontWeight="SemiBold"
+                               TextTrimming="CharacterEllipsis" />
+                    <TextBlock Text="{Binding StatusText}"
+                               Margin="0,3,0,0"
+                               Foreground="{StaticResource MutedInkBrush}"
+                               FontSize="11.5"
+                               TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+                <Border Grid.Column="2"
+                        Margin="8,0,0,0"
+                        Padding="7,3"
+                        VerticalAlignment="Center"
+                        Background="#FFFFE2D5"
+                        BorderBrush="#FFF2B39B"
+                        BorderThickness="1"
+                        CornerRadius="9"
+                        Visibility="{Binding NewBadgeVisibility}">
+                    <TextBlock Text="新"
+                               Foreground="#FF9B4E37"
+                               FontSize="10.5"
+                               FontWeight="SemiBold" />
+                </Border>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="InteractionItemTemplate">
+            <Border Margin="0,0,8,8"
+                    Padding="10,6"
+                    Background="#FFFFF4D3"
+                    BorderBrush="#FFEBDDA7"
+                    BorderThickness="1"
+                    CornerRadius="12">
+                <TextBlock Foreground="#FF625847"
+                           FontSize="11.5">
+                    <Run Text="{Binding Label}" />
+                    <Run Text="  " />
+                    <Run Text="{Binding CountText}"
+                         FontWeight="SemiBold" />
+                </TextBlock>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="UnlockItemTemplate">
+            <StackPanel Margin="0,0,0,8">
+                <TextBlock Text="{Binding Title}"
+                           Foreground="#FF554A3D"
+                           FontSize="12.5"
+                           FontWeight="SemiBold"
+                           TextWrapping="Wrap" />
+                <TextBlock Text="{Binding Detail}"
+                           Margin="0,2,0,0"
+                           Foreground="{StaticResource MutedInkBrush}"
+                           FontSize="11"
+                           TextWrapping="Wrap"
+                           Visibility="{Binding DetailVisibility}" />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid Background="#FFFFF8E5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="86" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                Padding="30,17"
+                Background="#FFFFFBEF"
+                BorderBrush="#FFE9DDAF"
+                BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="咕噜日记"
+                               Foreground="{StaticResource InkBrush}"
+                               FontFamily="Georgia, Microsoft YaHei UI"
+                               FontSize="25"
+                               FontWeight="SemiBold" />
+                    <TextBlock Text="每天傍晚，咕噜把和妈咪相处的片段写进纸页里"
+                               Margin="0,4,0,0"
+                               Foreground="{StaticResource MutedInkBrush}"
+                               FontSize="12.5" />
+                </StackPanel>
+                <Border Grid.Column="1"
+                        Padding="13,7"
+                        VerticalAlignment="Center"
+                        Background="#FFFFF2C4"
+                        BorderBrush="#FFE7D69D"
+                        BorderThickness="1"
+                        CornerRadius="15">
+                    <TextBlock Text="写给妈咪"
+                               Foreground="#FF786536"
+                               FontSize="12"
+                               FontWeight="SemiBold" />
+                </Border>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1"
+              Margin="28,22,28,28">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="242" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Padding="16"
+                    Background="#BFFFFFF7"
+                    BorderBrush="{StaticResource HairlineBrush}"
+                    BorderThickness="1"
+                    CornerRadius="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Margin="3,1,3,14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="以前的纸页"
+                                       Foreground="{StaticResource InkBrush}"
+                                       FontSize="16"
+                                       FontWeight="SemiBold" />
+                            <TextBlock Text="选择一页慢慢读"
+                                       Margin="0,3,0,0"
+                                       Foreground="{StaticResource MutedInkBrush}"
+                                       FontSize="11.5" />
+                        </StackPanel>
+                        <Border Grid.Column="1"
+                                Padding="9,5"
+                                VerticalAlignment="Center"
+                                Background="#FFFFF4D3"
+                                CornerRadius="11">
+                            <TextBlock x:Name="DiaryCountText"
+                                       Foreground="#FF836D32"
+                                       FontSize="11.5"
+                                       FontWeight="SemiBold" />
+                        </Border>
+                    </Grid>
+
+                    <ListBox x:Name="DateList"
+                             Grid.Row="1"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             HorizontalContentAlignment="Stretch"
+                             ItemContainerStyle="{StaticResource DateListItemStyle}"
+                             ItemTemplate="{StaticResource DateItemTemplate}"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             SelectionChanged="OnDateSelectionChanged"
+                             AutomationProperties.Name="日记日期列表" />
+
+                    <StackPanel x:Name="NoDatesPanel"
+                                Grid.Row="1"
+                                Margin="16"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Visibility="Collapsed">
+                        <Border Width="54"
+                                Height="54"
+                                HorizontalAlignment="Center"
+                                Background="#FFFFF1BD"
+                                CornerRadius="27">
+                            <Image Width="38"
+                                   Height="38"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Source="pack://siteoforigin:,,,/Assets/AppIcon.png"
+                                   Stretch="Uniform"
+                                   AutomationProperties.Name="咕噜" />
+                        </Border>
+                        <TextBlock Text="还没有写好的纸页"
+                                   Margin="0,12,0,0"
+                                   Foreground="{StaticResource InkBrush}"
+                                   FontSize="13"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="2"
+                               Margin="3,12,3,0"
+                               Text="从昨天傍晚到今天傍晚，咕噜都替妈咪记着"
+                               Foreground="#FF9A8B72"
+                               FontSize="10.5"
+                               LineHeight="16"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2"
+                    Background="#FFFFF8D9"
+                    BorderBrush="#FFE8D791"
+                    BorderThickness="1"
+                    CornerRadius="22">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="22"
+                                      Direction="270"
+                                      ShadowDepth="7"
+                                      Color="#443F341D"
+                                      Opacity="0.28" />
+                </Border.Effect>
+                <Grid ClipToBounds="True">
+                    <Image x:Name="DiaryFooterImage"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Bottom"
+                           Height="184"
+                           Stretch="UniformToFill"
+                           Opacity="0.36"
+                           IsHitTestVisible="False"
+                           Panel.ZIndex="0"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           AutomationProperties.Name="咕噜日记纸页底部背景插画" />
+
+                    <ScrollViewer x:Name="DiaryScrollViewer"
+                                  Padding="38,30,38,6"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto"
+                                  PanningMode="VerticalOnly"
+                                  Panel.ZIndex="1">
+                        <Border Background="Transparent">
+                            <StackPanel x:Name="DiaryDetailPanel">
+                            <TextBlock Text="{Binding DateHeading}"
+                                       Foreground="#FF8C7540"
+                                       FontSize="12"
+                                       FontWeight="SemiBold" />
+                            <TextBlock Text="{Binding PeriodText}"
+                                       Margin="0,4,0,0"
+                                       Foreground="#FFA09374"
+                                       FontSize="10.5" />
+
+                            <Grid Margin="0,18,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Title}"
+                                           Foreground="{StaticResource InkBrush}"
+                                           FontFamily="Georgia, Microsoft YaHei UI"
+                                           FontSize="25"
+                                           FontWeight="SemiBold"
+                                           LineHeight="34"
+                                           TextWrapping="Wrap" />
+                                <Border Grid.Column="1"
+                                        Margin="18,1,0,0"
+                                        Padding="13,6"
+                                        VerticalAlignment="Top"
+                                        Background="#FFFFD75C"
+                                        CornerRadius="14">
+                                    <TextBlock Text="{Binding Mood}"
+                                               Foreground="#FF594914"
+                                               FontSize="12"
+                                               FontWeight="SemiBold" />
+                                </Border>
+                            </Grid>
+
+                            <UniformGrid Margin="0,18,0,0"
+                                         Columns="3">
+                                <Border Margin="0,0,7,0"
+                                        Padding="12,10"
+                                        Background="#AFFFFFF6"
+                                        BorderBrush="#FFEBDFAF"
+                                        BorderThickness="1"
+                                        CornerRadius="12">
+                                    <StackPanel>
+                                        <TextBlock Text="天气"
+                                                   Foreground="#FF9A8B6F"
+                                                   FontSize="10.5" />
+                                        <TextBlock Text="{Binding WeatherText}"
+                                                   Margin="0,3,0,0"
+                                                   Foreground="#FF574D3D"
+                                                   FontSize="12.5"
+                                                   FontWeight="SemiBold"
+                                                   TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Margin="3.5,0"
+                                        Padding="12,10"
+                                        Background="#AFFFFFF6"
+                                        BorderBrush="#FFEBDFAF"
+                                        BorderThickness="1"
+                                        CornerRadius="12">
+                                    <StackPanel>
+                                        <TextBlock Text="陪在身边"
+                                                   Foreground="#FF9A8B6F"
+                                                   FontSize="10.5" />
+                                        <TextBlock Text="{Binding RuntimeText}"
+                                                   Margin="0,3,0,0"
+                                                   Foreground="#FF574D3D"
+                                                   FontSize="12.5"
+                                                   FontWeight="SemiBold"
+                                                   TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Margin="7,0,0,0"
+                                        Padding="12,10"
+                                        Background="#AFFFFFF6"
+                                        BorderBrush="#FFEBDFAF"
+                                        BorderThickness="1"
+                                        CornerRadius="12">
+                                    <StackPanel>
+                                        <TextBlock Text="妈咪来找我"
+                                                   Foreground="#FF9A8B6F"
+                                                   FontSize="10.5" />
+                                        <TextBlock Text="{Binding InteractionTotalText}"
+                                                   Margin="0,3,0,0"
+                                                   Foreground="#FF574D3D"
+                                                   FontSize="12.5"
+                                                   FontWeight="SemiBold"
+                                                   TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </Border>
+                            </UniformGrid>
+
+                            <TextBlock Text="{Binding Body}"
+                                       Margin="0,22,0,0"
+                                       Foreground="#FF403A31"
+                                       FontSize="15"
+                                       LineHeight="27"
+                                       TextWrapping="Wrap" />
+
+                            <StackPanel Margin="0,22,0,0"
+                                        Visibility="{Binding InteractionSectionVisibility}">
+                                <TextBlock Text="今天一起做的事"
+                                           Foreground="#FF675A48"
+                                           FontSize="12.5"
+                                           FontWeight="SemiBold" />
+                                <ItemsControl Margin="0,9,0,0"
+                                              ItemsSource="{Binding Interactions}"
+                                              ItemTemplate="{StaticResource InteractionItemTemplate}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </StackPanel>
+
+                            <Grid Margin="0,18,0,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="14" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Padding="14,12"
+                                        Background="#BFFFFFF5"
+                                        BorderBrush="#FFEBDFAF"
+                                        BorderThickness="1"
+                                        CornerRadius="13">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding PostcardHeading}"
+                                                   Foreground="#FF6A5B3E"
+                                                   FontSize="12.5"
+                                                   FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding NoPostcardsText}"
+                                                   Margin="0,8,0,0"
+                                                   Foreground="{StaticResource MutedInkBrush}"
+                                                   FontSize="11.5"
+                                                   TextWrapping="Wrap"
+                                                   Visibility="{Binding NoPostcardsVisibility}" />
+                                        <ItemsControl Margin="0,9,0,0"
+                                                      ItemsSource="{Binding Postcards}"
+                                                      ItemTemplate="{StaticResource UnlockItemTemplate}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="2"
+                                        Padding="14,12"
+                                        Background="#BFFFFFF5"
+                                        BorderBrush="#FFEBDFAF"
+                                        BorderThickness="1"
+                                        CornerRadius="13">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding MemoryHeading}"
+                                                   Foreground="#FF6A5B3E"
+                                                   FontSize="12.5"
+                                                   FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding NoMemoriesText}"
+                                                   Margin="0,8,0,0"
+                                                   Foreground="{StaticResource MutedInkBrush}"
+                                                   FontSize="11.5"
+                                                   TextWrapping="Wrap"
+                                                   Visibility="{Binding NoMemoriesVisibility}" />
+                                        <ItemsControl Margin="0,9,0,0"
+                                                      ItemsSource="{Binding Memories}"
+                                                      ItemTemplate="{StaticResource UnlockItemTemplate}" />
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+
+                            <TextBlock Text="{Binding AttributionText}"
+                                       Margin="0,15,0,0"
+                                       HorizontalAlignment="Center"
+                                       Foreground="#FFA89A7D"
+                                       FontSize="10.5" />
+                            </StackPanel>
+                        </Border>
+                    </ScrollViewer>
+
+                    <StackPanel x:Name="DiaryEmptyPanel"
+                                Margin="54"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Panel.ZIndex="1"
+                                Visibility="Collapsed">
+                        <Border Width="72"
+                                Height="72"
+                                HorizontalAlignment="Center"
+                                Background="#FFFFE791"
+                                CornerRadius="36">
+                            <Image Width="52"
+                                   Height="52"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Source="pack://siteoforigin:,,,/Assets/AppIcon.png"
+                                   Stretch="Uniform"
+                                   AutomationProperties.Name="咕噜" />
+                        </Border>
+                        <TextBlock Text="咕噜的日记本还空着"
+                                   Margin="0,18,0,0"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{StaticResource InkBrush}"
+                                   FontFamily="Georgia, Microsoft YaHei UI"
+                                   FontSize="21"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="只要我陪妈咪待一会儿，或者妈咪来找我，&#x0a;晚些时候，我就会把这一天收进纸页。"
+                                   Margin="0,9,0,0"
+                                   MaxWidth="430"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{StaticResource MutedInkBrush}"
+                                   FontSize="12.5"
+                                   LineHeight="21"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

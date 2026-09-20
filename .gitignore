@@ -1,0 +1,36 @@
+# .NET build output
+**/bin/
+**/obj/
+artifacts/
+publish/
+TestResults/
+
+# IDE and user state
+.vs/
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Local tooling and generation scratch space
+.tools/
+tmp/
+**/__pycache__/
+*.py[cod]
+
+# Runtime state and diagnostics
+*.log
+*.dmp
+
+# Local credentials and machine-specific configuration
+.secrets/
+.env
+.env.*
+!.env.example
+*.local
+
+# OS metadata
+Thumbs.db
+Desktop.ini

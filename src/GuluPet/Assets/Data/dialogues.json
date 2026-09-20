@@ -1,0 +1,13 @@
+[
+  {
+    "id": "community-greeting-1",
+    "text": "喵~",
+    "meaning": "安静问候",
+    "scene": "companionship",
+    "action": "greet",
+    "mood": "calm",
+    "relationshipStages": ["new", "familiar", "close", "family"],
+    "type": "dialogue",
+    "weight": 1
+  }
+]

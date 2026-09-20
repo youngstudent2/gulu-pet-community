@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D017A8B6-0BB6-4D7A-9386-2C9A53FE5B94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuluPet", "src\GuluPet\GuluPet.csproj", "{BECFEF21-A9CA-48DE-A4A2-E9EBC97D7B18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuluPet.Testing", "src\GuluPet.Testing\GuluPet.Testing.csproj", "{76EC1D5B-FFF2-4876-B621-75A8FB4F917E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{AEC7A064-120C-4121-9DC4-4244CD62EFDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuluPet.TestCli", "tools\GuluPet.TestCli\GuluPet.TestCli.csproj", "{CEC1EF5A-10F9-4499-9EB4-11F8E67AB289}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9D5E8DC5-DE0A-4070-960A-479960083F41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuluPet.Tests", "tests\GuluPet.Tests\GuluPet.Tests.csproj", "{8893FE49-54A0-4201-888A-5B07C9B0BF9E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BECFEF21-A9CA-48DE-A4A2-E9EBC97D7B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BECFEF21-A9CA-48DE-A4A2-E9EBC97D7B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BECFEF21-A9CA-48DE-A4A2-E9EBC97D7B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BECFEF21-A9CA-48DE-A4A2-E9EBC97D7B18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76EC1D5B-FFF2-4876-B621-75A8FB4F917E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76EC1D5B-FFF2-4876-B621-75A8FB4F917E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76EC1D5B-FFF2-4876-B621-75A8FB4F917E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76EC1D5B-FFF2-4876-B621-75A8FB4F917E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEC1EF5A-10F9-4499-9EB4-11F8E67AB289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEC1EF5A-10F9-4499-9EB4-11F8E67AB289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEC1EF5A-10F9-4499-9EB4-11F8E67AB289}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEC1EF5A-10F9-4499-9EB4-11F8E67AB289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8893FE49-54A0-4201-888A-5B07C9B0BF9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8893FE49-54A0-4201-888A-5B07C9B0BF9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8893FE49-54A0-4201-888A-5B07C9B0BF9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8893FE49-54A0-4201-888A-5B07C9B0BF9E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BECFEF21-A9CA-48DE-A4A2-E9EBC97D7B18} = {D017A8B6-0BB6-4D7A-9386-2C9A53FE5B94}
+		{76EC1D5B-FFF2-4876-B621-75A8FB4F917E} = {D017A8B6-0BB6-4D7A-9386-2C9A53FE5B94}
+		{CEC1EF5A-10F9-4499-9EB4-11F8E67AB289} = {AEC7A064-120C-4121-9DC4-4244CD62EFDA}
+		{8893FE49-54A0-4201-888A-5B07C9B0BF9E} = {9D5E8DC5-DE0A-4070-960A-479960083F41}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows10.0.17763.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\GuluPet\GuluPet.csproj" />
+    <ProjectReference Include="..\..\src\GuluPet.Testing\GuluPet.Testing.csproj" />
+    <ProjectReference Include="..\..\tools\GuluPet.TestCli\GuluPet.TestCli.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Tiny synthetic clips (solid color, <2 KB each) generated locally for
+         playback-window tests. The community package ships no private memory
+         videos; regenerate with tools/generate_test_media.ps1 if needed. -->
+    <Content Include="TestMedia\**\*"
+             Link="TestMedia\%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,492 @@
+<Window x:Class="GuluPet.Presentation.PostcardGalleryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="咕噜的旅行明信片"
+        Width="860"
+        Height="640"
+        MinWidth="680"
+        MinHeight="480"
+        AllowsTransparency="False"
+        Background="#FFFFF8E9"
+        ShowInTaskbar="True"
+        WindowStartupLocation="Manual"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        AutomationProperties.Name="咕噜的旅行明信片">
+    <Window.Resources>
+        <Style x:Key="GalleryIconButtonStyle"
+               TargetType="{x:Type Button}">
+            <Setter Property="MinWidth"
+                    Value="44" />
+            <Setter Property="MinHeight"
+                    Value="44" />
+            <Setter Property="Padding"
+                    Value="10,7" />
+            <Setter Property="Background"
+                    Value="#FFFFFCF6" />
+            <Setter Property="Foreground"
+                    Value="#FF443B35" />
+            <Setter Property="BorderBrush"
+                    Value="#FFD8C7B4" />
+            <Setter Property="BorderThickness"
+                    Value="1" />
+            <Setter Property="FontFamily"
+                    Value="Microsoft YaHei UI" />
+            <Setter Property="FontSize"
+                    Value="14" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type Control}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Border Margin="2"
+                                            BorderBrush="#FF2D6F73"
+                                            BorderThickness="2"
+                                            CornerRadius="7" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder"
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#FFFFF2DE" />
+                                <Setter TargetName="ButtonBorder"
+                                        Property="BorderBrush"
+                                        Value="#FFB84F3F" />
+                            </Trigger>
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#FFF4E3CD" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled"
+                                     Value="False">
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Opacity"
+                                        Value="0.45" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ThumbnailButtonStyle"
+               TargetType="{x:Type Button}">
+            <Setter Property="Width"
+                    Value="232" />
+            <Setter Property="Height"
+                    Value="208" />
+            <Setter Property="Margin"
+                    Value="10" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="Cursor"
+                    Value="Hand" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type Control}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Border Margin="3"
+                                            BorderBrush="#FF2D6F73"
+                                            BorderThickness="3"
+                                            CornerRadius="10" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ThumbnailBorder"
+                                Padding="8"
+                                Background="#FFFFFCF6"
+                                BorderBrush="#FFD8C7B4"
+                                BorderThickness="1"
+                                CornerRadius="9"
+                                RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleX="1"
+                                                ScaleY="1" />
+                            </Border.RenderTransform>
+                            <ContentPresenter HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Stretch" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="ThumbnailBorder"
+                                        Property="BorderBrush"
+                                        Value="#FFB84F3F" />
+                                <Setter TargetName="ThumbnailBorder"
+                                        Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="13"
+                                                          ShadowDepth="3"
+                                                          Direction="270"
+                                                          Color="#443E332C"
+                                                          Opacity="0.32" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+                                <Setter TargetName="ThumbnailBorder"
+                                        Property="Opacity"
+                                        Value="0.88" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="PostcardThumbnailTemplate">
+            <Button Style="{StaticResource ThumbnailButtonStyle}"
+                    Click="OnThumbnailClicked"
+                    Tag="{Binding}"
+                    AutomationProperties.Name="{Binding AutomationName}"
+                    AutomationProperties.HelpText="{Binding AutomationHelpText}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="142" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0"
+                            Background="#FFF1EADF"
+                            BorderBrush="#FFE4D8CA"
+                            BorderThickness="1"
+                            CornerRadius="4"
+                            ClipToBounds="True">
+                        <Grid>
+                            <Image Source="{Binding Thumbnail}"
+                                   Stretch="UniformToFill"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   AutomationProperties.Name="{Binding Definition.AltText}" />
+                            <TextBlock Text="这张风景暂时躲起来了"
+                                       Padding="12"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Foreground="#FF76695E"
+                                       FontFamily="Microsoft YaHei UI"
+                                       FontSize="12"
+                                       Visibility="{Binding FailureVisibility}" />
+                        </Grid>
+                    </Border>
+                    <Grid Grid.Row="1"
+                          Margin="2,7,2,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Definition.Title}"
+                                       Foreground="#FF443B35"
+                                       FontFamily="Microsoft YaHei UI"
+                                       FontSize="13.5"
+                                       FontWeight="SemiBold"
+                                       TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="{Binding Definition.Location}"
+                                       Margin="0,1,0,0"
+                                       Foreground="#FF76695E"
+                                       FontFamily="Microsoft YaHei UI"
+                                       FontSize="11"
+                                       TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1"
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="{Binding ChapterName}"
+                                       HorizontalAlignment="Right"
+                                       Foreground="#FF76695E"
+                                       FontFamily="Microsoft YaHei UI"
+                                       FontSize="9.5"
+                                       FontWeight="SemiBold" />
+                            <TextBlock Text="{Binding ChapterPosition}"
+                                       HorizontalAlignment="Right"
+                                       Foreground="#FFB84F3F"
+                                       FontFamily="Microsoft YaHei UI"
+                                       FontSize="10.5"
+                                       FontWeight="SemiBold" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Button>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid x:Name="GalleryRoot"
+          Background="#FFFFF8E9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="76" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                Padding="24,14"
+                Background="#FFFFFCF6"
+                BorderBrush="#FFE1D4C5"
+                BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="54" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Border Width="46"
+                        Height="46"
+                        Background="#FFFFF8E9"
+                        BorderBrush="#FFD8C7B4"
+                        BorderThickness="1"
+                        CornerRadius="23">
+                    <Image x:Name="GalleryGuluImage"
+                           Width="42"
+                           Height="42"
+                           Stretch="Uniform"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           AutomationProperties.Name="咕噜" />
+                </Border>
+                <StackPanel Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="咕噜的旅行明信片"
+                               Foreground="#FF443B35"
+                               FontFamily="Microsoft YaHei UI"
+                               FontSize="21"
+                               FontWeight="SemiBold" />
+                    <TextBlock Text="每次出去逛逛，咕噜都会捎一张明信片回来"
+                               Margin="0,2,0,0"
+                               Foreground="#FF76695E"
+                               FontFamily="Microsoft YaHei UI"
+                               FontSize="11.5" />
+                </StackPanel>
+                <Border Grid.Column="2"
+                        Padding="13,6"
+                        VerticalAlignment="Center"
+                        Background="#FFFFF2DE"
+                        BorderBrush="#FFE2CBAE"
+                        BorderThickness="1"
+                        CornerRadius="14">
+                    <TextBlock x:Name="UnlockedCountText"
+                               Foreground="#FFB84F3F"
+                               FontFamily="Microsoft YaHei UI"
+                               FontSize="12.5"
+                               FontWeight="SemiBold" />
+                </Border>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border x:Name="ChapterNavigation"
+                    Grid.Row="0"
+                    Margin="26,10,26,8"
+                    Padding="10,8"
+                    Background="#FFFFF2DE"
+                    BorderBrush="#FFE2CBAE"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Visibility="Collapsed">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="PreviousChapterButton"
+                            MinWidth="72"
+                            MinHeight="38"
+                            Padding="12,6"
+                            Style="{StaticResource GalleryIconButtonStyle}"
+                            Content="‹ 上一章"
+                            Click="OnPreviousChapterClicked"
+                            AutomationProperties.Name="查看上一章明信片" />
+                    <Grid Grid.Column="1"
+                          Margin="14,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="ChapterPageText"
+                                       VerticalAlignment="Center"
+                                       Foreground="#FF443B35"
+                                       FontFamily="Microsoft YaHei UI"
+                                       FontSize="13"
+                                       FontWeight="SemiBold"
+                                       TextTrimming="CharacterEllipsis" />
+                            <TextBlock x:Name="NextPostcardLabelText"
+                                       Grid.Column="1"
+                                       Margin="12,0,0,0"
+                                       VerticalAlignment="Center"
+                                       Foreground="#FFB84F3F"
+                                       FontFamily="Microsoft YaHei UI"
+                                       FontSize="11.5"
+                                       FontWeight="SemiBold" />
+                        </Grid>
+                        <Grid Grid.Row="1"
+                              Margin="0,7,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ProgressBar x:Name="NextPostcardProgress"
+                                         Height="14"
+                                         VerticalAlignment="Center"
+                                         Minimum="0"
+                                         Maximum="20"
+                                         Foreground="#FF607863"
+                                         Background="#FFE9DDCE"
+                                         BorderThickness="0"
+                                         AutomationProperties.Name="当前章节明信片进度" />
+                            <TextBlock x:Name="NextProgressText"
+                                       Grid.Column="1"
+                                       Margin="10,0,0,0"
+                                       MinWidth="34"
+                                       VerticalAlignment="Center"
+                                       Foreground="#FF76695E"
+                                       FontFamily="Microsoft YaHei UI"
+                                       FontSize="11.5"
+                                       TextAlignment="Right" />
+                        </Grid>
+                    </Grid>
+                    <Button x:Name="NextChapterButton"
+                            Grid.Column="2"
+                            MinWidth="72"
+                            MinHeight="38"
+                            Padding="12,6"
+                            Style="{StaticResource GalleryIconButtonStyle}"
+                            Content="下一章 ›"
+                            Click="OnNextChapterClicked"
+                            AutomationProperties.Name="查看下一章明信片" />
+                </Grid>
+            </Border>
+
+            <ScrollViewer x:Name="GalleryScrollViewer"
+                          Grid.Row="1"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto"
+                          PanningMode="VerticalOnly">
+                <ItemsControl x:Name="PostcardItems"
+                              Margin="14,4,14,18"
+                              ItemTemplate="{StaticResource PostcardThumbnailTemplate}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Center"
+                                       Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <StackPanel x:Name="EmptyState"
+                        Grid.RowSpan="2"
+                        Width="360"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Visibility="Collapsed">
+                <Image x:Name="EmptyGuluImage"
+                       Width="118"
+                       Height="118"
+                       Stretch="Uniform"
+                       Opacity="0.92"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       AutomationProperties.Name="等待出发的咕噜" />
+                <TextBlock Text="咕噜还没寄来第一张明信片"
+                           Margin="0,14,0,0"
+                           HorizontalAlignment="Center"
+                           Foreground="#FF443B35"
+                           FontFamily="Microsoft YaHei UI"
+                           FontSize="17"
+                           FontWeight="SemiBold" />
+                <TextBlock x:Name="EmptyProgressText"
+                           Margin="0,6,0,0"
+                           HorizontalAlignment="Center"
+                           Foreground="#FF76695E"
+                           FontFamily="Microsoft YaHei UI"
+                           FontSize="12.5"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
+
+        <TextBlock x:Name="FooterHintText"
+                    Grid.Row="2"
+                    Margin="26,12,26,14"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Foreground="#FF76695E"
+                    FontFamily="Microsoft YaHei UI"
+                    FontSize="11.5"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+
+        <Border x:Name="ImageOpenFeedbackBorder"
+                Grid.RowSpan="3"
+                Margin="24,0,24,54"
+                Padding="14,8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Panel.ZIndex="30"
+                Background="#E6433831"
+                CornerRadius="15"
+                IsHitTestVisible="False"
+                Opacity="0"
+                Visibility="Collapsed">
+            <Border.RenderTransform>
+                <TranslateTransform x:Name="ImageOpenFeedbackTranslate"
+                                    Y="8" />
+            </Border.RenderTransform>
+            <TextBlock x:Name="ImageOpenFeedbackText"
+                       Text="图片暂时打不开"
+                       Foreground="White"
+                       FontFamily="Microsoft YaHei UI"
+                       FontSize="12.5"
+                       FontWeight="SemiBold"
+                       AutomationProperties.LiveSetting="Polite"
+                       AutomationProperties.Name="图片暂时打不开" />
+        </Border>
+    </Grid>
+</Window>

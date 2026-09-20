@@ -1,0 +1,17 @@
+Gulu Pet Community
+Copyright (c) 2026 Gulu Pet Community contributors
+
+This distribution includes a small set of original Gulu artwork (application
+icon, interaction icons, side-docking frames, diary footer, loading
+illustration, and the single `idle_breathe` animation clip), redistributed
+with the author's authorization under the repository's MIT License. See
+ASSETS.md for the full inventory. `tools/generate_sample_assets.py` can
+recreate simple geometric placeholders for forks.
+
+The project depends on third-party software, including SkiaSharp and the .NET
+runtime. Their copyright notices and license terms remain with their respective
+projects and are not replaced by this notice.
+
+No private production artwork, credentials, deployment configuration, service
+endpoints, release history, or Git history is included in this community
+snapshot.

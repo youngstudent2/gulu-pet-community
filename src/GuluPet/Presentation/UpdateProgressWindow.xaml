@@ -1,0 +1,208 @@
+<Window x:Class="GuluPet.Presentation.UpdateProgressWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="咕噜更新"
+        Width="540"
+        Height="350"
+        MinWidth="540"
+        MinHeight="350"
+        MaxWidth="540"
+        MaxHeight="350"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#FFFFF7E8"
+        FontFamily="Microsoft YaHei UI"
+        Icon="/Assets/App.ico"
+        Closing="OnWindowClosing">
+    <Window.Resources>
+        <Style x:Key="UpdateProgressStyle" TargetType="ProgressBar">
+            <Setter Property="Height" Value="14" />
+            <Setter Property="Background" Value="#FFF4E5CA" />
+            <Setter Property="Foreground" Value="#FFF29A4A" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Grid x:Name="PART_Track">
+                            <Border x:Name="TrackSurface"
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="7" />
+                            <Border x:Name="PART_Indicator"
+                                    HorizontalAlignment="Left"
+                                    CornerRadius="7">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0.5"
+                                                         EndPoint="1,0.5">
+                                        <GradientStop Offset="0"
+                                                      Color="#FFFFC46E" />
+                                        <GradientStop Offset="1"
+                                                      Color="#FFF28D3C" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}"
+                                         Value="True">
+                                <Setter TargetName="TrackSurface"
+                                        Property="Background"
+                                        Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+                                <Setter TargetName="PART_Indicator"
+                                        Property="Background"
+                                        Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="UpdateCancelButtonStyle" TargetType="Button">
+            <Setter Property="MinWidth" Value="108" />
+            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="Padding" Value="18,8" />
+            <Setter Property="Background" Value="#FFFFFCF7" />
+            <Setter Property="BorderBrush" Value="#FFE1C99D" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="#FF4E4538" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Surface"
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Surface"
+                                        Property="Background"
+                                        Value="#FFFFF2DA" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Surface"
+                                        Property="Background"
+                                        Value="#FFF8DEB7" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Surface"
+                                        Property="BorderBrush"
+                                        Value="#FFF29A4A" />
+                                <Setter TargetName="Surface"
+                                        Property="BorderThickness"
+                                        Value="2" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.45" />
+                                <Setter Property="Cursor" Value="Arrow" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}"
+                                         Value="True">
+                                <Setter TargetName="Surface"
+                                        Property="Background"
+                                        Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                                <Setter TargetName="Surface"
+                                        Property="BorderBrush"
+                                        Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
+                                <Setter Property="Foreground"
+                                        Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="32,28,32,26">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="准备新版本"
+                       FontSize="25"
+                       FontWeight="SemiBold"
+                       Foreground="#FF4E4538" />
+            <TextBlock Margin="0,6,0,0"
+                       Text="检查、下载并安全准备更新文件"
+                       FontSize="13"
+                       Foreground="#FF817464" />
+        </StackPanel>
+
+        <Border Grid.Row="1"
+                Margin="0,20,0,0"
+                Padding="22,20"
+                Background="#FFFFFFFF"
+                BorderBrush="#FFF0DDB9"
+                BorderThickness="1"
+                CornerRadius="18">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="StatusText"
+                           FontSize="15"
+                           FontWeight="SemiBold"
+                           Foreground="#FF4E4538"
+                           Text="正在准备…"
+                           TextWrapping="Wrap" />
+
+                <TextBlock x:Name="DetailText"
+                           Grid.Row="1"
+                           Margin="0,6,0,0"
+                           MinHeight="20"
+                           FontSize="13"
+                           Foreground="#FF756A58"
+                           TextWrapping="Wrap" />
+
+                <Grid Grid.Row="2" Margin="0,18,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ProgressBar x:Name="DownloadProgress"
+                                 VerticalAlignment="Center"
+                                 Minimum="0"
+                                 Maximum="100"
+                                 Value="0"
+                                 Style="{StaticResource UpdateProgressStyle}" />
+                    <TextBlock x:Name="ProgressPercentText"
+                               Grid.Column="1"
+                               Width="44"
+                               Margin="12,0,0,0"
+                               HorizontalAlignment="Right"
+                               TextAlignment="Right"
+                               VerticalAlignment="Center"
+                               Text="{Binding ElementName=DownloadProgress,
+                                              Path=Value,
+                                              Mode=OneWay,
+                                              StringFormat={}{0:0}%}"
+                               FontSize="13"
+                               FontWeight="SemiBold"
+                               Foreground="#FF9A5B2A"
+                               AutomationProperties.LiveSetting="Polite" />
+                </Grid>
+
+                <Button x:Name="CancelButton"
+                        Grid.Row="3"
+                        Margin="0,18,0,0"
+                        HorizontalAlignment="Right"
+                        Content="取消"
+                        Style="{StaticResource UpdateCancelButtonStyle}"
+                        Click="OnCancelClicked" />
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

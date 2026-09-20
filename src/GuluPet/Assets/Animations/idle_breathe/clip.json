@@ -1,0 +1,13 @@
+{
+  "name": "idle_breathe",
+  "frameCount": 121,
+  "fps": 24,
+  "loop": true,
+  "placeholder": false,
+  "assetStatus": "gulu-authorized-sample",
+  "sourceBatch": "B0",
+  "sourceStage": "runtime-rgba-webp-q92-24fps",
+  "sourceFrameIndices": [],
+  "knownIssues": [],
+  "events": []
+}

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>GuluPet.Testing</AssemblyName>
+    <RootNamespace>GuluPet.Testing</RootNamespace>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "mode": "production",
+  "contentVersion": "gulu-idle-sample-v1",
+  "expectedClipCount": 1,
+  "framesPerSecond": 24,
+  "frameSize": 320,
+  "animationFormat": "animated-webp",
+  "assetStatus": "gulu-authorized-sample",
+  "knownIssues": [],
+  "sourceReviewStatus": "redistributable"
+}
